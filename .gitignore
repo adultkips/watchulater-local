@@ -1,0 +1,6 @@
+# Local databases and environment
+/db/*.db
+/db/*.sqlite
+/db/*.sqlite3
+/db/*.db-*
+/.env
