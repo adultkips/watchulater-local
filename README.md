@@ -1,5 +1,8 @@
 ﻿# Watchulater Local
 
+![License](https://img.shields.io/github/license/adultkips/watchulater-local)
+![PHP](https://img.shields.io/badge/PHP-8.x-blue)
+
 A 100% local, single-user Watchulater build with Plex integration, onboarding, roulettes, lists, and battles.
 
 ## Requirements
