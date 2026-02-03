@@ -1,0 +1,13 @@
+#reset-battles{
+  background:#f8d7da;
+  color:#7f1d1d;
+}
+
+.create-battle .step-panel[data-step="2"] .source-block + .source-block{
+  margin-top:16px;
+}
+
+#filter-toggle.is-active{
+  background:#9ca3af;
+  color:#fff;
+}
