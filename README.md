@@ -15,6 +15,37 @@ No cloud account, no hosted backend - everything runs locally on your machine.
 - Battles with live ranking between watched titles
 - Single-user local setup with SQLite
 
+## Feature matrix
+
+| Feature | Status | What it does | Notes |
+|---|---|---|---|
+| Onboarding + Plex link | Done | Guides first-time setup and links Plex account | PIN flow + manual token fallback |
+| Plex server selection | Done | Lets user select and save Plex server connection | Supports reconnect/reset flow |
+| Roulette flow | Done | Shows one title at a time with decision actions | Skip, watchlist, watched, dismissed |
+| List management | Done | Manages Watchlist, Watched, and Dismissed lists | Filter, sort, search, quick move actions |
+| Watch Now | Done | Builds a temporary watch session from visible filtered items | Local session flow, no persistent preset |
+| Battles | Done | Head-to-head watched-title matchups with scoring | Winner/loser scoring + live rank list |
+| Cover icons/gallery | Done | Lets user choose icon-based covers for presets | Optional custom cover URL/upload |
+| Local DB auto-init | Done | Creates local SQLite DB automatically on first run | Uses `db/schema.sql` + `db/seed.sql` |
+| Security hardening | Done | Protects state-changing endpoints | POST-only + CSRF token checks |
+
+## Roadmap + status
+
+### Now
+- Stable local-first release is available on GitHub
+- Core Plex onboarding and server selection are implemented
+- Roulette, lists, Watch Now, and Battles are implemented
+- Security baseline is in place (POST-only + CSRF checks)
+
+### Next
+- Test phase: collect real-world feedback, bug reports, and UX friction points
+- Prioritize fixes and refinements based on tester feedback
+
+### Later
+- Add additional media integrations (for example Jellyfin, Letterboxd, and IMDb)
+- Add import of Plex watchlist into local lists
+- Add import of Plex ratings/stars into local watched data
+
 ## Screenshots
 
 ### Profile
@@ -40,14 +71,24 @@ No cloud account, no hosted backend - everything runs locally on your machine.
   - `curl`
   - `json`
 
+## One-click setup
+
+### Option A: Download ZIP
+1. Click `Code` -> `Download ZIP` on GitHub
+2. Extract the folder
+3. Double-click `start_server.bat`
+
+### Option B: Clone with Git
+```powershell
+git clone https://github.com/adultkips/watchulater-local.git
+cd watchulater-local
+```
+Then double-click `start_server.bat`.
+
 ## Quick start (Windows)
 
 1. Clone or download this repository
-2. Start the local server:
-
-   ```powershell
-   .\start_server.bat
-   ```
+2. Double-click `start_server.bat` to start the local server
 
 3. Open:
 
@@ -65,17 +106,26 @@ On first load, the app auto-creates `db/watchulater.db` from `db/schema.sql` + `
 ## Troubleshooting
 
 - **`php` not found**  
-  Install PHP and make sure `php -v` works in terminal.
+  Install PHP and confirm it is in PATH: `php -v`
+
+- **Missing PHP extensions (`pdo_sqlite` / `curl`)**  
+  Check enabled modules: `php -m`  
+  Ensure `pdo_sqlite` and `curl` are enabled in your PHP installation.
 
 - **404 on `/`**  
-  Start server from project root and use:  
-  `php -S localhost:8000 -t public_html`
+  Start the app by double-clicking `start_server.bat` from the project root folder (not from inside a subfolder).
+
+- **Port 8000 already in use**  
+  Edit `start_server.bat` and change `set PORT=8000` to another free port (for example `8080`), then open that port in browser.
 
 - **Plex TLS/certificate errors**  
   Update `cacert.pem` from: https://curl.se/ca/cacert.pem
 
-- **Port 8000 already in use**  
-  Change `PORT` in `start_server.bat`.
+- **`method_not_allowed` on endpoints in browser**  
+  Some endpoints are POST-only by design (security). This is expected if opened directly in browser.
+
+- **Need a clean local reset**  
+  Stop server, delete `db/watchulater.db`, start server again, then reload the app.
 
 ## Security / local data
 
