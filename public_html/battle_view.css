@@ -1,6 +1,6 @@
-body{
+﻿body{
   font-family: Arial, sans-serif;
-  background:#f5f5f5;
+  background:var(--bg);
   margin:0;
 }
 
@@ -28,7 +28,7 @@ body{
 .battle-container p{
   grid-column:1 / -1;
   text-align:center;
-  color:#666;
+  color:var(--muted);
 }
 
 .battle-poster{
@@ -92,7 +92,7 @@ body{
 }
 
 .battle-divider{
-  border-top:1px solid #e5e7eb;
+  border-top:1px solid var(--border);
   width:40%;
   margin:40px auto;
 }
@@ -119,8 +119,8 @@ body{
   gap:12px;
   align-items:center;
   padding: 10px 12px;
-  background:#fff;
-  border:1px solid #e5e7eb;
+  background:var(--card);
+  border:1px solid var(--border);
   border-radius:12px;
   margin-bottom:12px;
 }
@@ -147,7 +147,7 @@ body{
 .rank-title span{
   font-size:13px;
   font-weight:500;
-  color:#6b7280;
+  color:var(--muted);
   margin-left:6px;
 }
 
@@ -155,7 +155,7 @@ body{
   display:flex;
   gap:10px;
   font-size:12px;
-  color:#6b7280;
+  color:var(--muted);
   flex-wrap:wrap;
 }
 
@@ -189,6 +189,10 @@ body{
   gap:6px;
   padding:7px 12px;
 }
+.theme-dark .ranklist .btn{
+  background:#1f2937;
+  color:#e5e7eb;
+}
 
 .ranklist .btn:hover{
   background:#d1d5db;
@@ -196,6 +200,9 @@ body{
 
 .ranklist .btn.danger{
   background:#f8d7da;
+}
+.theme-dark .ranklist .btn.danger{
+  background:#4b1f24;
 }
 
 .ranklist .btn.danger:hover{
@@ -224,9 +231,9 @@ body{
   bottom:36px;
   left:50%;
   transform: translateX(-50%) translateY(6px);
-  background:#fff;
-  color:#111;
-  border:1px solid #e5e7eb;
+  background:var(--card);
+  color:var(--text);
+  border:1px solid var(--border);
   border-radius:999px;
   padding:4px 8px;
   font-size:11px;
@@ -247,5 +254,6 @@ body{
   font-weight:700;
   font-size:20px;
   text-align:center;
-  color:#6b7280;
+  color:var(--muted);
 }
+

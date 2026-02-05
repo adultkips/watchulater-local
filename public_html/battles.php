@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '/bootstrap.php';
 require_onboarded($pdo);
+$watchedCount = (int)$pdo->query("SELECT COUNT(*) FROM filmvalg WHERE status = 'watched'")->fetchColumn();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +14,7 @@ require_onboarded($pdo);
   <link rel="stylesheet" href="battles.css">
   <script src="battles.js" defer></script>
 </head>
-<body class="with-side-nav">
+<body class="with-side-nav" data-watched-count="<?php echo $watchedCount; ?>">
   <?php include 'nav.php'; ?>
   <main class="main-content">
     <div class="top-bar">
@@ -56,12 +57,13 @@ require_onboarded($pdo);
     <section id="battles-section" aria-labelledby="battles-heading">
       <div class="film-grid" id="battles-grid" aria-live="polite"></div>
 
-      <div class="empty" id="battles-empty" hidden>
-        <button type="button" class="empty-cta" id="empty-create">+ Create your first battle</button>
+      <div class="tom-liste-besked" id="battles-empty" hidden>
+        <div>You haven’t marked any titles as watched yet.</div>
+        <a href="roulettes.php">Go to roulettes</a>
       </div>
     </section>
   </main>
-  <button class="fab" id="add-battle" type="button" aria-label="Create new battle">
+  <button class="fab" id="add-battle" type="button" aria-label="Create new battle" <?php echo $watchedCount === 0 ? 'style="display:none"' : ''; ?>>
     <span class="fab-plus">+</span>
     <span class="fab-label">New Battle</span>
   </button>

@@ -1,4 +1,4 @@
-(() => {
+﻿(() => {
   const csrfToken = window.CSRF_TOKEN || '';
   const csrfHeaders = csrfToken ? { 'X-CSRF-Token': csrfToken } : {};
   const params = new URLSearchParams(location.search);
@@ -22,6 +22,8 @@
   const writerEl = document.getElementById('writer');
   const genresEl = document.getElementById('genres');
   const actorsEl = document.getElementById('actors');
+  const directorRow = directorEl?.parentElement || null;
+  const writerRow = writerEl?.parentElement || null;
   const posterLink = document.getElementById('poster-link');
   const actionsEl = document.querySelector('.actions');
 
@@ -145,6 +147,9 @@
       cardEl.style.transition = '';
       cardEl.classList.add('fade-in');
     });
+    const isShow = String(item.type || '').toLowerCase() === 'show';
+    if (directorRow) directorRow.style.display = isShow ? 'none' : '';
+    if (writerRow) writerRow.style.display = isShow ? 'none' : '';
     directorEl.textContent = item.director || '-';
     writerEl.textContent = item.writer || '-';
     genresEl.textContent = item.genres || '-';
@@ -385,3 +390,4 @@
 
   load();
 })();
+

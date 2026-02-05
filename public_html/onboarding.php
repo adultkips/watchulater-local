@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require __DIR__ . '/../db/connect.php';
 require_once __DIR__ . '/csrf.php';
 $csrfToken = csrf_token();
@@ -53,35 +53,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $step === 3) {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>
     window.CSRF_TOKEN = "<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>";
+    (function(){
+      try{
+        const t = localStorage.getItem('theme');
+        if (t === 'dark') document.documentElement.classList.add('theme-dark');
+      }catch(_){}
+    })();
   </script>
   <title>Welcome to Watchulater</title>
   <style>
-    body{font-family: Arial, sans-serif; background:#f5f5f5; margin:0;}
-    .wrap{max-width:700px; width:100%; margin:0 auto; background:#fff; padding:36px; border-radius:14px; box-shadow:0 2px 10px rgba(0,0,0,.08); box-sizing:border-box}
+    :root{--bg:#f5f5f5; --text:#111; --card:#fff; --card-alt:#fafafa; --border:#e5e7eb; --muted:#666}
+    .theme-dark{--bg:#0f1115; --text:#e5e7eb; --card:#141821; --card-alt:#10151d; --border:#2a2f3a; --muted:#9ca3af}
+    body{font-family: Arial, sans-serif; background:var(--bg); color:var(--text); margin:0;}
+    .wrap{max-width:700px; width:100%; margin:0 auto; background:var(--card); padding:36px; border-radius:14px; box-shadow:0 2px 10px rgba(0,0,0,.08); box-sizing:border-box}
     .wrap-center{min-height:calc(100vh - 72px); display:flex; align-items:center; justify-content:center}
     h1{margin:0 0 12px 0}
     h3{margin:0 0 6px 0}
-    p{color:#444}
+    p{color:var(--muted)}
     .step{font-size:12px; text-transform:uppercase; letter-spacing:1px; color:#888; margin-bottom:20px}
     .actions{margin-top:50px; display:flex; gap:12px; justify-content:flex-end; flex-wrap:wrap}
     .actions.split{justify-content:space-between}
     .actions.left{justify-content:flex-start}
     .btn{padding:10px 16px; border-radius:8px; border:none; cursor:pointer; font-weight:600}
     .primary{background:#2d7ef7; color:#fff}
-    .secondary{background:#e5e7eb}
-    .plex-card{border:1px solid #e5e7eb; border-radius:12px; padding:16px; margin-top:18px; background:#fafafa; width:100%; box-sizing:border-box}
+    .secondary{background:var(--card-alt); color:var(--text)}
+    .theme-dark .secondary{background:#1f2937; color:#e5e7eb}
+    .theme-toggle{position:absolute; top:16px; right:16px; background:var(--card); border:1px solid var(--border); color:var(--text); padding:6px 10px; border-radius:999px; font-size:12px; font-weight:600; cursor:pointer}
+    .theme-toggle:hover{background:var(--card-alt)}
+    .plex-card{border:1px solid var(--border); border-radius:12px; padding:16px; margin-top:18px; background:var(--card-alt); width:100%; box-sizing:border-box}
     .row{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
     .field{display:grid; grid-template-columns:minmax(260px, 1fr) auto; gap:12px; align-items:center; margin-top:12px}
-    .input{padding:10px 12px; border-radius:8px; border:1px solid #ddd; width:100%; box-sizing:border-box; -webkit-appearance:none; appearance:none; background:#fff}
+    .input{padding:10px 12px; border-radius:8px; border:1px solid var(--border); width:100%; box-sizing:border-box; -webkit-appearance:none; appearance:none; background:var(--card); color:var(--text)}
     select.input{padding-right:36px; background-image:linear-gradient(45deg, transparent 50%, #666 50%), linear-gradient(135deg, #666 50%, transparent 50%); background-position:calc(100% - 18px) 16px, calc(100% - 12px) 16px; background-size:6px 6px, 6px 6px; background-repeat:no-repeat}
-    .muted{color:#777; font-size:13px}
+    .muted{color:var(--muted); font-size:13px}
     .divider{display:flex; align-items:center; gap:12px; margin:18px 0}
-    .divider::before, .divider::after{content:""; height:1px; background:#e5e7eb; flex:1}
+    .divider::before, .divider::after{content:""; height:1px; background:var(--border); flex:1}
     .divider span{font-size:12px; color:#888; text-transform:uppercase; letter-spacing:1px}
-    .toggle{background:#f3f4f6; border:1px solid #e5e7eb; padding:6px 10px; cursor:pointer; text-transform:uppercase; letter-spacing:1px; font-size:12px; color:#666; border-radius:999px}
-    .server-wrap{border:1px solid #e5e7eb; border-radius:14px; padding:16px; background:#fafafa; margin-top:18px; width:100%; box-sizing:border-box}
-    .manual-block{border:1px dashed #e5e7eb; border-radius:12px; padding:12px; background:#fff; width:100%; box-sizing:border-box}
-    .status{margin-top:10px; font-size:13px; color:#333}
+    .toggle{background:var(--card-alt); border:1px solid var(--border); padding:6px 10px; cursor:pointer; text-transform:uppercase; letter-spacing:1px; font-size:12px; color:var(--muted); border-radius:999px}
+    .server-wrap{border:1px solid var(--border); border-radius:14px; padding:16px; background:var(--card-alt); margin-top:18px; width:100%; box-sizing:border-box}
+    .manual-block{border:1px dashed var(--border); border-radius:12px; padding:12px; background:var(--card); width:100%; box-sizing:border-box}
+    .status{margin-top:10px; font-size:13px; color:var(--text)}
     .status.success{color:#1b7f3c}
     .status.error{color:#b42318}
     .btn[disabled]{opacity:.6; cursor:not-allowed}
@@ -89,19 +100,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $step === 3) {
 </head>
 <body>
   <div class="wrap-center">
-    <div class="wrap">
+    <div class="wrap" style="position:relative;">
     <?php if ($step === 1): ?>
       <div class="step">Step 1 of 3</div>
       <h1>Welcome to Watchulater</h1>
+      <button type="button" class="theme-toggle" id="theme-toggle">Dark mode</button>
       <p>We will get you connected to your Plex server and ready to browse.</p>
       <form method="POST" class="actions split">
-        <button class="btn secondary" disabled>Back</button>
+        <span></span>
         <button class="btn primary" type="submit">Continue</button>
       </form>
     <?php elseif ($step === 2): ?>
       <div class="step">Step 2 of 3</div>
       <h1>Connect to Plex</h1>
-      <p>Use the recommended method, or choose the manual fallback below.</p>
+      <p>We recommend logging in with Plex, or alternatively entering your Plex token manually below.</p>
 
       <div class="plex-card">
         <h3>Login with Plex</h3>
@@ -134,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $step === 3) {
 
       <form method="POST" class="actions split">
         <button class="btn secondary" type="button" onclick="window.location.href='onboarding.php?step=1'">Back</button>
-        <button class="btn primary" type="submit">Continue</button>
+        <button class="btn primary" type="submit" id="step2-continue" disabled>Continue</button>
       </form>
 
       <script>
@@ -145,8 +157,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $step === 3) {
         const manualBlock = document.getElementById('manual-block');
         const tokenInput = document.getElementById('manual-token');
         const saveTokenBtn = document.getElementById('save-token');
+        const continueBtn = document.getElementById('step2-continue');
+        const initialHasToken = <?php echo $hasToken ? 'true' : 'false'; ?>;
         let pollTimer = null;
         let plexAuthWindow = null;
+        let isLinked = initialHasToken;
+
+        function setContinueEnabled(enabled){
+          if (!continueBtn) return;
+          continueBtn.disabled = !enabled;
+        }
 
         function setPlexStatus(text, cls){
           if (!plexStatusEl) return;
@@ -159,6 +179,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $step === 3) {
           manualStatusEl.textContent = text || '';
           manualStatusEl.className = 'status' + (cls ? ' ' + cls : '');
         }
+
+        setContinueEnabled(isLinked);
 
         async function startLogin(){
           if (!loginBtn) return;
@@ -190,6 +212,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $step === 3) {
                     }
                   } catch (_) {}
                   setPlexStatus('Plex account linked.', 'success');
+                  isLinked = true;
+                  setContinueEnabled(true);
                   loginBtn.disabled = false;
                 }
               } catch (_) {
@@ -218,8 +242,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $step === 3) {
             const data = JSON.parse(text);
             if (!res.ok || data.error) throw new Error(data.error || 'invalid');
             setManualStatus('Token saved.', 'success');
+            isLinked = true;
+            setContinueEnabled(true);
           } catch (_) {
             setManualStatus('Token invalid. Please try again.', 'error');
+            isLinked = false;
+            setContinueEnabled(false);
           } finally {
             saveTokenBtn.disabled = false;
           }
@@ -465,5 +493,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $step === 3) {
     <?php endif; ?>
     </div>
   </div>
-</body>
+    <script>
+      (function(){
+        const themeToggle = document.getElementById('theme-toggle');
+        if (!themeToggle) return;
+        function setThemeLabel(){
+          const isDark = document.documentElement.classList.contains('theme-dark');
+          themeToggle.textContent = isDark ? 'Light mode' : 'Dark mode';
+        }
+        themeToggle.addEventListener('click', () => {
+          const isDark = document.documentElement.classList.toggle('theme-dark');
+          try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch (_) {}
+          setThemeLabel();
+        });
+        setThemeLabel();
+      })();
+    </script>
+  </body>
 </html>
+

@@ -1,6 +1,9 @@
-<?php
+﻿<?php
 require __DIR__ . '/bootstrap.php';
 require_onboarded($pdo);
+
+$battleCount = (int)$pdo->query("SELECT COUNT(*) FROM battle_presets")->fetchColumn();
+$isFirstBattle = $battleCount === 0 && empty($_GET['id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +21,7 @@ require_onboarded($pdo);
   <main class="container">
     <form id="cb-form" autocomplete="off">
       <div class="stepper" id="cb-stepper">Step 1 of 2</div>
-      <h1 id="page-title">Create battle</h1>
+      <h1 id="page-title"><?php echo $isFirstBattle ? 'Create your first battle' : 'Create battle'; ?></h1>
 
       <section class="step-panel" data-step="1">
         <div class="field field-cover">
@@ -33,23 +36,33 @@ require_onboarded($pdo);
             <button type="button" class="cover-option" data-cover="icons/genres/adventure.png" aria-label="Adventure"><img src="icons/genres/adventure.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/animation.png" aria-label="Animation"><img src="icons/genres/animation.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/biography.png" aria-label="Biography"><img src="icons/genres/biography.png" alt=""></button>
+            <button type="button" class="cover-option" data-cover="icons/genres/bookmark.png" aria-label="Bookmark"><img src="icons/genres/bookmark.png" alt=""></button>
+            <button type="button" class="cover-option" data-cover="icons/genres/close.png" aria-label="Close"><img src="icons/genres/close.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/comedy.png" aria-label="Comedy"><img src="icons/genres/comedy.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/crime.png" aria-label="Crime"><img src="icons/genres/crime.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/drama.png" aria-label="Drama"><img src="icons/genres/drama.png" alt=""></button>
+            <button type="button" class="cover-option" data-cover="icons/genres/eye.png" aria-label="Eye"><img src="icons/genres/eye.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/family.png" aria-label="Family"><img src="icons/genres/family.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/fantasy.png" aria-label="Fantasy"><img src="icons/genres/fantasy.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/film.png" aria-label="Film"><img src="icons/genres/film.png" alt=""></button>
+            <button type="button" class="cover-option" data-cover="icons/genres/film-camera.png" aria-label="Film Camera"><img src="icons/genres/film-camera.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/history.png" aria-label="History"><img src="icons/genres/history.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/horror.png" aria-label="Horror"><img src="icons/genres/horror.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/kids.png" aria-label="Kids"><img src="icons/genres/kids.png" alt=""></button>
+            <button type="button" class="cover-option" data-cover="icons/genres/movie.png" aria-label="Movie"><img src="icons/genres/movie.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/music.png" aria-label="Music"><img src="icons/genres/music.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/mystery.png" aria-label="Mystery"><img src="icons/genres/mystery.png" alt=""></button>
+            <button type="button" class="cover-option" data-cover="icons/genres/plus-18.png" aria-label="Plus 18"><img src="icons/genres/plus-18.png" alt=""></button>
+            <button type="button" class="cover-option" data-cover="icons/genres/popcorn.png" aria-label="Popcorn"><img src="icons/genres/popcorn.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/romance.png" aria-label="Romance"><img src="icons/genres/romance.png" alt=""></button>
-            <button type="button" class="cover-option" data-cover="icons/genres/scifi.png" aria-label="Science Fiction"><img src="icons/genres/scifi.png" alt=""></button>
+            <button type="button" class="cover-option" data-cover="icons/genres/scifi.png" aria-label="Sci Fi"><img src="icons/genres/scifi.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/series.png" aria-label="Series"><img src="icons/genres/series.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/sport.png" aria-label="Sport"><img src="icons/genres/sport.png" alt=""></button>
+            <button type="button" class="cover-option" data-cover="icons/genres/star.png" aria-label="Star"><img src="icons/genres/star.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/superheroes.png" aria-label="Superheroes"><img src="icons/genres/superheroes.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/thriller.png" aria-label="Thriller"><img src="icons/genres/thriller.png" alt=""></button>
+            <button type="button" class="cover-option" data-cover="icons/genres/tv.png" aria-label="TV"><img src="icons/genres/tv.png" alt=""></button>
+            <button type="button" class="cover-option" data-cover="icons/genres/user.png" aria-label="User"><img src="icons/genres/user.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/war.png" aria-label="War"><img src="icons/genres/war.png" alt=""></button>
             <button type="button" class="cover-option" data-cover="icons/genres/western.png" aria-label="Western"><img src="icons/genres/western.png" alt=""></button>
           </div>
@@ -144,3 +157,4 @@ require_onboarded($pdo);
   </main>
 </body>
 </html>
+

@@ -16,6 +16,28 @@
   let allItems = [];
   let visibleIds = [];
 
+  const sortKey = 'wl_sort_roulettes';
+  const dirKey = 'wl_sortdir_roulettes';
+
+  function applySavedSort() {
+    try {
+      const savedSort = localStorage.getItem(sortKey);
+      const savedDir = localStorage.getItem(dirKey);
+      if (savedSort && sortSelect) sortSelect.value = savedSort;
+      if (savedDir && sortDirBtn) {
+        sortDirBtn.dataset.dir = savedDir;
+        sortDirBtn.textContent = savedDir === 'asc' ? '↑' : '↓';
+      }
+    } catch (_) {}
+  }
+
+  function saveSort() {
+    try {
+      if (sortSelect) localStorage.setItem(sortKey, sortSelect.value);
+      if (sortDirBtn) localStorage.setItem(dirKey, sortDirBtn.dataset.dir || 'desc');
+    } catch (_) {}
+  }
+
   function goCreate() {
     window.location.href = 'create_roulette.php';
   }
@@ -311,6 +333,10 @@
     const res = await fetch('getroulettes.php', { cache: 'no-store' });
     const list = await res.json();
     allItems = Array.isArray(list) ? list : [];
+    if (allItems.length === 0) {
+      window.location.href = 'create_roulette.php';
+      return;
+    }
     const selectedGenres = genreFilter
       ? Array.from(genreFilter.querySelectorAll('input:checked')).map(i => i.value)
       : [];
@@ -330,11 +356,15 @@
   const emptyCreate = document.getElementById('empty-create');
   emptyCreate?.addEventListener('click', goCreate);
 
-  sortSelect?.addEventListener('change', () => render(sortList(applyFilters(allItems))));
+  sortSelect?.addEventListener('change', () => {
+    saveSort();
+    render(sortList(applyFilters(allItems)));
+  });
   sortDirBtn?.addEventListener('click', () => {
     const next = sortDirBtn.dataset.dir === 'asc' ? 'desc' : 'asc';
     sortDirBtn.dataset.dir = next;
     sortDirBtn.textContent = next === 'asc' ? '↑' : '↓';
+    saveSort();
     render(sortList(applyFilters(allItems)));
   });
   searchToggle?.addEventListener('click', () => {
@@ -369,5 +399,8 @@
     load();
   });
 
-  document.addEventListener('DOMContentLoaded', load);
+  document.addEventListener('DOMContentLoaded', () => {
+    applySavedSort();
+    load();
+  });
 })();

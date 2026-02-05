@@ -15,6 +15,29 @@
   const resetBtn = document.getElementById('reset-battles');
   let allItems = [];
   let visibleIds = [];
+  const watchedCount = Number(document.body.dataset.watchedCount || 0);
+
+  const sortKey = 'wl_sort_battles';
+  const dirKey = 'wl_sortdir_battles';
+
+  function applySavedSort() {
+    try {
+      const savedSort = localStorage.getItem(sortKey);
+      const savedDir = localStorage.getItem(dirKey);
+      if (savedSort && sortSelect) sortSelect.value = savedSort;
+      if (savedDir && sortDirBtn) {
+        sortDirBtn.dataset.dir = savedDir;
+        sortDirBtn.innerHTML = savedDir === 'asc' ? '&uarr;' : '&darr;';
+      }
+    } catch (_) {}
+  }
+
+  function saveSort() {
+    try {
+      if (sortSelect) localStorage.setItem(sortKey, sortSelect.value);
+      if (sortDirBtn) localStorage.setItem(dirKey, sortDirBtn.dataset.dir || 'desc');
+    } catch (_) {}
+  }
 
   function goCreate() {
     window.location.href = 'create_battle.php';
@@ -299,6 +322,7 @@
       if (empty) empty.hidden = true;
     } else {
       if (empty) empty.hidden = false;
+      if (emptyCreate) emptyCreate.hidden = watchedCount === 0;
     }
   }
 
@@ -306,6 +330,14 @@
     const res = await fetch('getbattles.php', { cache: 'no-store' });
     const list = await res.json();
     allItems = Array.isArray(list) ? list : [];
+    if (allItems.length === 0) {
+      if (watchedCount > 0) {
+        window.location.href = 'create_battle.php';
+        return;
+      }
+      if (empty) empty.hidden = false;
+      if (emptyCreate) emptyCreate.hidden = true;
+    }
     const selectedGenres = genreFilter
       ? Array.from(genreFilter.querySelectorAll('input:checked')).map(i => i.value)
       : [];
@@ -318,18 +350,23 @@
     render(sortList(filtered));
   }
 
+  if (watchedCount === 0 && addTile) addTile.hidden = true;
+
   addTile?.addEventListener('click', goCreate);
   addTile?.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goCreate(); }
   });
   const emptyCreate = document.getElementById('empty-create');
-  emptyCreate?.addEventListener('click', goCreate);
 
-  sortSelect?.addEventListener('change', () => render(sortList(applyFilters(allItems))));
+  sortSelect?.addEventListener('change', () => {
+    saveSort();
+    render(sortList(applyFilters(allItems)));
+  });
   sortDirBtn?.addEventListener('click', () => {
     const next = sortDirBtn.dataset.dir === 'asc' ? 'desc' : 'asc';
     sortDirBtn.dataset.dir = next;
     sortDirBtn.innerHTML = next === 'asc' ? '&uarr;' : '&darr;';
+    saveSort();
     render(sortList(applyFilters(allItems)));
   });
   searchToggle?.addEventListener('click', () => {
@@ -364,5 +401,8 @@
     load();
   });
 
-  document.addEventListener('DOMContentLoaded', load);
+  document.addEventListener('DOMContentLoaded', () => {
+    applySavedSort();
+    load();
+  });
 })();

@@ -16,6 +16,12 @@ $items = [
 ?>
 <script>
   window.CSRF_TOKEN = "<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>";
+  (function(){
+    try{
+      const t = localStorage.getItem('theme');
+      if (t === 'dark') document.documentElement.classList.add('theme-dark');
+    }catch(_){}
+  })();
 </script>
 <nav class="side-nav" aria-label="Main">
   <?php foreach ($items as $item): ?>

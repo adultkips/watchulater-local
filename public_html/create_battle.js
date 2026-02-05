@@ -1,4 +1,4 @@
-(() => {
+﻿(() => {
   const $ = (s, r=document) => r.querySelector(s);
   const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
   const csrfToken = window.CSRF_TOKEN || '';
@@ -200,9 +200,7 @@
       label.appendChild(span);
       ratingChips.appendChild(label);
     });
-    ratingChips.querySelectorAll('span').forEach(s => {
-      s.textContent = s.textContent.replace('â˜…', '★');
-    });
+    ratingChips.querySelectorAll('span').forEach(s => {    });
     ratingChips.querySelectorAll('input').forEach(cb => {
       cb.addEventListener('change', updateRatingControls);
     });
@@ -579,3 +577,4 @@
     showStep(1);
   });
 })();
+

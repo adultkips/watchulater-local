@@ -1,4 +1,27 @@
-/* Discreet side navigation */
+﻿/* Discreet side navigation */
+:root{
+  --bg:#f5f5f5;
+  --text:#111;
+  --card:#fff;
+  --card-alt:#fafafa;
+  --border:#e5e7eb;
+  --muted:#666;
+}
+
+.theme-dark{
+  --bg:#0f1115;
+  --text:#e5e7eb;
+  --card:#141821;
+  --card-alt:#10151d;
+  --border:#2a2f3a;
+  --muted:#9ca3af;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+}
+
 .with-side-nav{
   padding-left:0;
   padding-top:0;
@@ -14,8 +37,8 @@
   flex-direction:row;
   gap:8px;
   z-index:100;
-  background:#fff;
-  border:1px solid #e5e7eb;
+  background:var(--card);
+  border:1px solid var(--border);
   border-radius:999px;
   padding:6px 8px;
   box-shadow:0 8px 20px rgba(0,0,0,.12);
@@ -26,7 +49,7 @@
   align-items:center;
   justify-content:center;
   font-size:12px;
-  color:#6b7280;
+  color:var(--muted);
   text-decoration:none;
   letter-spacing:.5px;
   width:40px;
@@ -47,8 +70,8 @@
 }
 
 .side-nav .nav-link.is-active{
-  color:#111;
-  background:#f3f4f6;
+  color:var(--text);
+  background:var(--card-alt);
 }
 
 .side-nav .nav-link.is-active[data-page="profile.php"]{background:#f3f4f6;}
@@ -59,9 +82,12 @@
 .side-nav .nav-link.is-active[data-page="battles.php"]{background:#ede9fe; color:#5b21b6;}
 .side-nav .nav-link.is-active[data-page="dismissed.php"]{background:#e5e7eb;}
 
+.theme-dark .side-nav .nav-link.is-active[data-page="profile.php"]{background:#1f2937; color:var(--text);}
+.theme-dark .side-nav .nav-link.is-active[data-page="dismissed.php"]{background:#1f2937; color:var(--text);}
+
 .side-nav .nav-link:hover{
-  color:#111;
-  background:#f3f4f6;
+  color:var(--text);
+  background:var(--card-alt);
   transform: translateY(-1px);
 }
 
@@ -71,9 +97,9 @@
   bottom:50px;
   left:50%;
   transform: translateX(-50%) translateY(6px);
-  background:#fff;
-  color:#111;
-  border:1px solid #e5e7eb;
+  background:var(--card);
+  color:var(--text);
+  border:1px solid var(--border);
   border-radius:999px;
   padding:4px 8px;
   font-size:11px;
@@ -88,3 +114,4 @@
   opacity:1;
   transform: translateX(-50%) translateY(0);
 }
+

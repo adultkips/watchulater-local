@@ -23,52 +23,56 @@ $dismissedCount = (int)$pdo->query("SELECT COUNT(*) FROM filmvalg WHERE status =
   <title>Profile - Watchulater</title>
   <link rel="stylesheet" href="nav.css">
   <style>
-    body{font-family: Arial, sans-serif; background:#f5f5f5; margin:0;}
-    .wrap{max-width:980px; margin:20px auto 0; background:#fff; padding:36px; border-radius:14px; box-shadow:0 2px 10px rgba(0,0,0,.08)}
+    body{font-family: Arial, sans-serif; background:var(--bg); color:var(--text); margin:0;}
+    .wrap{max-width:980px; margin:20px auto 0; background:var(--card); padding:36px; border-radius:14px; box-shadow:0 2px 10px rgba(0,0,0,.08); position:relative}
     h1{margin:0 0 12px 0; text-align:center}
-    p{color:#444}
-    .card{border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin-top:18px; background:#fafafa}
-    .status{margin-top:0; font-size:13px; color:#333; text-align:right}
+    p{color:var(--muted)}
+    .card{border:1px solid var(--border); border-radius:12px; padding:20px; margin-top:18px; background:var(--card-alt)}
+    .status{margin-top:0; font-size:13px; color:var(--text); text-align:right}
     .status.success{color:#1b7f3c}
     .status.error{color:#b42318}
       .btn{padding:10px 16px; border-radius:8px; border:none; cursor:pointer; font-weight:600; display:inline-flex; align-items:center}
       .btn-icon{width:18px; height:18px; object-fit:contain; margin-left:8px; display:inline-block}
-    .secondary{background:#e5e7eb}
+    .secondary{background:var(--card-alt); color:var(--text)}
+    .theme-dark .secondary{background:#1f2937; color:#e5e7eb}
     .primary{background:#2d7ef7; color:#fff}
-    .hint{font-size:12px; color:#666; margin-top:6px}
+    .hint{font-size:12px; color:var(--muted); margin-top:6px}
     .list{margin:8px 0 0 0; padding:0; list-style:none; display:flex; flex-wrap:wrap; gap:8px}
-    .list li{background:#fff; border:1px solid #e5e7eb; border-radius:999px; padding:8px 12px; font-size:14px; color:#333}
+    .list li{background:var(--card); border:1px solid var(--border); border-radius:999px; padding:8px 12px; font-size:14px; color:var(--text)}
     .type-block{margin-top:18px}
     .type-label{font-size:12px; text-transform:uppercase; letter-spacing:1px; color:#888}
-    .divider{height:1px; background:#e5e7eb; margin-top:16px}
+    .divider{height:1px; background:var(--border); margin-top:16px}
     .field{display:grid; grid-template-columns:110px 1fr; gap:12px; align-items:center; margin-top:12px}
       .actions{display:flex; gap:12px; margin-top:16px; flex-wrap:wrap; justify-content:flex-end}
     .card-header{display:flex; align-items:center; justify-content:space-between; gap:12px}
     h3{margin:0}
-      .card-footer{display:flex; align-items:center; justify-content:flex-start; gap:10px; margin-top:8px; line-height:1}
-    .status-label{font-size:12px; text-transform:uppercase; letter-spacing:1px; color:#888}
+      .card-footer{display:flex; align-items:center; justify-content:flex-start; gap:2px; margin-top:8px; line-height:1}
+    .status-label{font-size:12px; letter-spacing:1px; color:#888}
     .icon-btn{background:none; border:none; padding:0; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; width:16px; height:16px; color:#9ca3af}
     .icon-btn svg{width:16px; height:16px}
     .icon-btn:hover{color:#6b7280}
-    .link-btn{background:none; border:none; padding:0; color:#111; text-decoration:underline; font-weight:600; cursor:pointer}
-    .input{padding:10px 12px; border-radius:8px; border:1px solid #ddd; width:100%; box-sizing:border-box; -webkit-appearance:none; appearance:none; background:#fff}
+    .link-btn{background:none; border:none; padding:0; color:var(--text); text-decoration:underline; font-weight:600; cursor:pointer}
+    .input{padding:10px 12px; border-radius:8px; border:1px solid var(--border); width:100%; box-sizing:border-box; -webkit-appearance:none; appearance:none; background:var(--card); color:var(--text)}
     select.input{padding-right:36px; background-image:linear-gradient(45deg, transparent 50%, #666 50%), linear-gradient(135deg, #666 50%, transparent 50%); background-position:calc(100% - 18px) 16px, calc(100% - 12px) 16px; background-size:6px 6px, 6px 6px; background-repeat:no-repeat}
     .label{font-size:12px; text-transform:uppercase; letter-spacing:1px; color:#888}
     .dashboard{margin:10px 0 22px}
     .dashboard-grid{display:grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap:12px}
-    .dash-card{border:1px solid #e5e7eb; border-radius:12px; background:#fafafa; padding:14px; min-height:86px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center; width:100%; box-sizing:border-box; aspect-ratio:1 / 1}
+    .dash-card{border:1px solid var(--border); border-radius:12px; background:var(--card-alt); padding:14px; min-height:86px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center; width:100%; box-sizing:border-box; aspect-ratio:1 / 1}
     .dash-link{display:flex; text-decoration:none; color:inherit}
     .dash-link:hover .dash-card{box-shadow:0 6px 14px rgba(0,0,0,.08); transform: translateY(-1px)}
     .dash-label{font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#888}
-    .dash-value{font-size:35px; font-weight:700; color:#111}
+    .dash-value{font-size:35px; font-weight:700; color:var(--text)}
+    .theme-toggle{position:absolute; top:16px; right:16px; background:var(--card); border:1px solid var(--border); color:var(--text); padding:6px 10px; border-radius:999px; font-size:12px; font-weight:600; cursor:pointer}
+    .theme-toggle:hover{background:var(--card-alt)}
     .dash-sub{font-size:12px; color:#666}
-    .progress{height:20px; width:100%; background:#e5e7eb; border-radius:999px; overflow:hidden}
+    .progress{height:20px; width:100%; background:var(--border); border-radius:999px; overflow:hidden}
     .progress > span{display:block; height:100%; width:0; background:#2d7ef7}
   </style>
 </head>
 <body class="with-side-nav">
   <?php include 'nav.php'; ?>
   <div class="wrap">
+    <button type="button" class="theme-toggle" id="theme-toggle">Dark mode</button>
     <h1>Profile</h1>
 
     <section class="dashboard">
@@ -162,7 +166,7 @@ $dismissedCount = (int)$pdo->query("SELECT COUNT(*) FROM filmvalg WHERE status =
 
     <div class="card">
       <div class="card-header">
-        <h3>Connection</h3>
+        <h3>Sections</h3>
       </div>
       <div id="sections"></div>
       <div class="divider"></div>
@@ -185,6 +189,7 @@ $dismissedCount = (int)$pdo->query("SELECT COUNT(*) FROM filmvalg WHERE status =
     const resetBtn = document.getElementById('reset-all');
     const serverUrlInput = document.getElementById('server-url-input');
     const serverTokenInput = document.getElementById('server-token-input');
+    const themeToggle = document.getElementById('theme-toggle');
 
     const statusEl = document.getElementById('plex-status');
     const sectionsEl = document.getElementById('sections');
@@ -196,6 +201,22 @@ $dismissedCount = (int)$pdo->query("SELECT COUNT(*) FROM filmvalg WHERE status =
     let pollTimer = null;
     let plexAuthWindow = null;
     let reconnectPending = false;
+
+    function setThemeLabel(){
+      if (!themeToggle) return;
+      const isDark = document.documentElement.classList.contains('theme-dark');
+      themeToggle.textContent = isDark ? 'Light mode' : 'Dark mode';
+    }
+
+    themeToggle?.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('theme-dark');
+      try{
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      }catch(_){}
+      setThemeLabel();
+    });
+
+    setThemeLabel();
 
     function setStatus(text, cls){
       statusEl.textContent = text || '';

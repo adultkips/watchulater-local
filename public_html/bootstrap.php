@@ -1,5 +1,8 @@
 ﻿<?php
 // public_html/bootstrap.php
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
 require __DIR__ . '/../db/connect.php';
 
 function ensure_db_initialized(PDO $pdo): void {

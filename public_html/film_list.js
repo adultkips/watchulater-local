@@ -20,6 +20,28 @@
   let items = [];
   let visibleIds = [];
   let visibleItems = [];
+
+  const sortKey = `wl_sort_${status}`;
+  const dirKey = `wl_sortdir_${status}`;
+
+  function applySavedSort() {
+    try {
+      const savedSort = localStorage.getItem(sortKey);
+      const savedDir = localStorage.getItem(dirKey);
+      if (savedSort && sortSelect) sortSelect.value = savedSort;
+      if (savedDir && sortDirBtn) {
+        sortDirBtn.dataset.dir = savedDir;
+        sortDirBtn.textContent = savedDir === 'asc' ? '↑' : '↓';
+      }
+    } catch (_) {}
+  }
+
+  function saveSort() {
+    try {
+      if (sortSelect) localStorage.setItem(sortKey, sortSelect.value);
+      if (sortDirBtn) localStorage.setItem(dirKey, sortDirBtn.dataset.dir || 'desc');
+    } catch (_) {}
+  }
   const serverId = document.querySelector('.main-content')?.dataset.serverId || '';
   let editModal = null;
   let editState = { id: null, rating: 0, recommended: false, mode: 'edit' };
@@ -451,11 +473,15 @@
     render(sorted);
   }
 
-  sortSelect.addEventListener('change', load);
+  sortSelect.addEventListener('change', () => {
+    saveSort();
+    load();
+  });
   sortDirBtn?.addEventListener('click', () => {
     const next = sortDirBtn.dataset.dir === 'asc' ? 'desc' : 'asc';
     sortDirBtn.dataset.dir = next;
     sortDirBtn.textContent = next === 'asc' ? '↑' : '↓';
+    saveSort();
     load();
   });
   searchToggle?.addEventListener('click', () => {
@@ -501,5 +527,6 @@
     window.location.href = 'watch_now.php?from=' + encodeURIComponent(status + '.php');
   });
 
+  applySavedSort();
   load();
 })();
