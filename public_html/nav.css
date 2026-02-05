@@ -85,6 +85,13 @@ body{
 .theme-dark .side-nav .nav-link.is-active[data-page="profile.php"]{background:#1f2937; color:var(--text);}
 .theme-dark .side-nav .nav-link.is-active[data-page="dismissed.php"]{background:#1f2937; color:var(--text);}
 
+.theme-dark .side-nav .nav-link.is-active[data-page="profile.php"]{background:#111; color:#f3f4f6;}
+.theme-dark .side-nav .nav-link.is-active[data-page="roulettes.php"]{background:#92400e; color:#fef3c7;}
+.theme-dark .side-nav .nav-link.is-active[data-page="watchlist.php"]{background:#1e3a8a; color:#dbeafe;}
+.theme-dark .side-nav .nav-link.is-active[data-page="watched.php"]{background:#166534; color:#dcfce7;}
+.theme-dark .side-nav .nav-link.is-active[data-page="battles.php"]{background:#5b21b6; color:#ede9fe;}
+.theme-dark .side-nav .nav-link.is-active[data-page="dismissed.php"]{background:#374151; color:#e5e7eb;}
+
 .side-nav .nav-link:hover{
   color:var(--text);
   background:var(--card-alt);

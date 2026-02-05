@@ -140,6 +140,10 @@ body.is-scrolled .top-bar{
   background:#f8d7da;
   color:#7f1d1d;
 }
+.theme-dark #reset-filters{
+  background:#7f1d1d;
+  color:#f8d7da;
+}
 
 .film-grid{
   max-width: none;
@@ -306,28 +310,28 @@ body[data-status="dismissed"] .film-grid{
 }
 .theme-dark .actions-row .btn,
 .theme-dark .film-actions .btn{
-  background:#f3f4f6;
-  color:#111;
+  background:#374151;
+  color:#e5e7eb;
 }
 .theme-dark .actions-row .btn.primary,
 .theme-dark .film-actions .btn.primary{
-  background:#dbeafe;
-  color:#1e3a8a;
+  background:#1e3a8a;
+  color:#dbeafe;
 }
 .theme-dark .actions-row .btn.watched,
 .theme-dark .film-actions .btn.watched{
-  background:#dcfce7;
-  color:#166534;
+  background:#166534;
+  color:#dcfce7;
 }
 .theme-dark .actions-row .btn.ghost,
 .theme-dark .film-actions .btn.ghost{
-  background:#dcfce7;
-  color:#166534;
+  background:#166534;
+  color:#dcfce7;
 }
 .theme-dark .actions-row .btn.danger,
 .theme-dark .film-actions .btn.danger{
-  background:#f8d7da;
-  color:#7f1d1d;
+  background:#7f1d1d;
+  color:#f8d7da;
 }
 
 .btn.danger{

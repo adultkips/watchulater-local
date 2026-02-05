@@ -432,6 +432,11 @@
 .actions #btn-watchlist{background:#dbeafe; color:#1e3a8a;}
 .actions #btn-watched{background:#dcfce7; color:#166534;}
 
+.theme-dark .actions #btn-dismiss{background:#374151; color:#e5e7eb;}
+.theme-dark .actions #btn-skip{background:#92400e; color:#fef3c7;}
+.theme-dark .actions #btn-watchlist{background:#1e3a8a; color:#dbeafe;}
+.theme-dark .actions #btn-watched{background:#166534; color:#dcfce7;}
+
 .peek{
   position:relative;
   margin:10px auto 0;

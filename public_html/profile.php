@@ -33,7 +33,6 @@ $dismissedCount = (int)$pdo->query("SELECT COUNT(*) FROM filmvalg WHERE status =
     .status.error{color:#b42318}
       .btn{padding:10px 16px; border-radius:8px; border:none; cursor:pointer; font-weight:600; display:inline-flex; align-items:center}
       .btn-icon{width:18px; height:18px; object-fit:contain; margin-left:8px; display:inline-block}
-    .secondary{background:var(--card-alt); color:var(--text)}
     .theme-dark .secondary{background:#1f2937; color:#e5e7eb}
     .primary{background:#2d7ef7; color:#fff}
     .hint{font-size:12px; color:var(--muted); margin-top:6px}

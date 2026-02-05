@@ -190,23 +190,20 @@
   padding:7px 12px;
 }
 .theme-dark .ranklist .btn{
-  background:#1f2937;
+  background:#374151;
   color:#e5e7eb;
 }
 
 .ranklist .btn:hover{
-  background:#d1d5db;
+  background:#272c34;
 }
 
 .ranklist .btn.danger{
   background:#f8d7da;
 }
 .theme-dark .ranklist .btn.danger{
-  background:#4b1f24;
-}
-
-.ranklist .btn.danger:hover{
-  background:#f1bfc6;
+  background:#7f1d1d;
+  color:#f8d7da;
 }
 
 

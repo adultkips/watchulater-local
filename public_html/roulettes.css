@@ -199,6 +199,10 @@
   background:#f8d7da;
   color:#7f1d1d;
 }
+.theme-dark .center-bar #reset-roulettes{
+  background:#7f1d1d;
+  color:#f8d7da;
+}
 
 .center-bar .icon{
   width:16px;
@@ -910,24 +914,24 @@ h3{
   color:#fff;
 }
 .theme-dark .card-actions .btn{
-  background:#f3f4f6;
-  color:#111;
+  background:#111;
+  color:#f3f4f6;
 }
 .theme-dark .card-actions .btn.primary{
-  background:#dbeafe;
-  color:#1e3a8a;
+  background:#1e3a8a;
+  color:#dbeafe;
 }
 .theme-dark .card-actions .btn.watched{
-  background:#dcfce7;
-  color:#166534;
+  background:#166534;
+  color:#dcfce7;
 }
 .theme-dark .card-actions .btn.ghost{
-  background:#dcfce7;
-  color:#166534;
+  background:#166534;
+  color:#dcfce7;
 }
 .theme-dark .card-actions .btn.danger{
-  background:#f8d7da;
-  color:#7f1d1d;
+  background:#7f1d1d;
+  color:#f8d7da;
 }
 .theme-dark .center-bar select,
 .theme-dark .center-bar button{

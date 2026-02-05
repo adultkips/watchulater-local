@@ -2,6 +2,10 @@
   background:#f8d7da;
   color:#7f1d1d;
 }
+.theme-dark #reset-battles{
+  background:#7f1d1d;
+  color:#f8d7da;
+}
 
 .create-battle .step-panel[data-step="2"] .source-block + .source-block{
   margin-top:16px;
